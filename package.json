@@ -7,20 +7,20 @@
     "Jeswin Kumar<jeswinpk@agilehead.com>",
     "Arivanandan<uarivanandan@gmail.com>"
   ],
-  "main": "dist/plugin-fs.js",
+  "main": "dist/transform-to-isotropy-db.js",
   "scripts": {
     "test": "mocha dist/test/test.js",
-    "debug": "mocha dist/test/test.js --insepct-brk"
+    "debug": "mocha --inspect-brk dist/test/test.js"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/isotropy/babel-plugin-isotropy-fs.git"
+    "url": "https://github.com/isotropy/babel-plugin-isotropy-db.git"
   },
   "bugs": {
-    "url": "https://github.com/isotropy/babel-plugin-isotropy-fs/issues"
+    "url": "https://github.com/isotropy/babel-plugin-isotropy-db/issues"
   },
   "dependencies": {
-    "isotropy-ast-analyzer-fs": "0.0.1"
+    "isotropy-ast-analyzer-db": "0.0.1"
   },
   "devDependencies": {
     "babel-core": "^6.22.1",

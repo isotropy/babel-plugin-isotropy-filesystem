@@ -7,7 +7,7 @@ import sourceMapSupport from "source-map-support";
 
 sourceMapSupport.install();
 
-describe("isotropy-ast-analyzer-fs", () => {
+describe("isotropy-ast-analyzer-db", () => {
   function run([description, dir, opts]) {
     it(`${description}`, () => {
       const fixturePath = path.resolve(
@@ -27,22 +27,9 @@ describe("isotropy-ast-analyzer-fs", () => {
           [
             pluginInfo.plugin,
             {
-              // projects: [
-              //   {
-              //     dir: "src/server",
-              //     modules: [
-              //       {
-              //         source: "fixtures/my-fs",
-              //         locations: [
-              //           { name: "images", path: "/home/saved-files/todos" },
-              //           { name: "textFiles", path: "/home/saved-files/todos" }
-              //         ]
-              //       }
-              //     ]
-              //   }
-              // ]
-              filesystemModules: {
-                todosFsModule: "./dist/test/fixtures/my-fs"
+              libDbIdentifier: "ispyDb",
+              databaseModules: {
+                todosDbModule: "./dist/test/fixtures/my-db"
               }
             }
           ],
@@ -60,15 +47,7 @@ describe("isotropy-ast-analyzer-fs", () => {
   }
 
   const tests = [
-    // ["create-file", "create-file"],
-    // ["read-file", "read-file"],
-    // ["update-file", "update-file"],
-    // ["get-files", "get-files"],
-    // ["get-files-recursive", "get-files-recursive"],
-    // ["move-file", "move-file"],
-    // ["move-dir", "move-dir"],
-    // ["delete-file", "delete-file"],
-    ["delete-dir", "delete-dir"]
+    ["count", "count"]
   ];
 
   for (const test of tests) {
