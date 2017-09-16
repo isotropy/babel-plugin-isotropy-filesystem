@@ -2,7 +2,7 @@ import should from "should";
 import * as babel from "babel-core";
 import fs from "fs";
 import path from "path";
-import makePlugin from "../fs-plugin";
+import makePlugin from "../transform-to-isotropy-fs";
 import sourceMapSupport from "source-map-support";
 
 sourceMapSupport.install();
@@ -27,7 +27,20 @@ describe("isotropy-ast-analyzer-fs", () => {
           [
             pluginInfo.plugin,
             {
-              libFsIdentifier: "ispyFs",
+              // projects: [
+              //   {
+              //     dir: "src/server",
+              //     modules: [
+              //       {
+              //         source: "fixtures/my-fs",
+              //         locations: [
+              //           { name: "images", path: "/home/saved-files/todos" },
+              //           { name: "textFiles", path: "/home/saved-files/todos" }
+              //         ]
+              //       }
+              //     ]
+              //   }
+              // ]
               filesystemModules: {
                 todosFsModule: "./dist/test/fixtures/my-fs"
               }

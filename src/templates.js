@@ -1,37 +1,37 @@
 import template from "babel-template";
 
-export function fs_getFiles() {
+export function getFiles() {
   return template(`LIB_FS.getFiles(path.join(BASE_PATH, DIR), RECURSE);`);
 }
 
-export function fs_readFile() {
+export function readFile() {
   return template(`LIB_FS.readFile(path.join(BASE_PATH, DIR), FILENAME);`);
 }
 
-export function fs_createFile() {
+export function createFile() {
   return template(
     `LIB_FS.createFile(path.join(BASE_PATH, DIR), FILENAME, CONTENTS);`
   );
 }
 
-export function fs_deleteFile() {
+export function deleteFile() {
   return template(`LIB_FS.deleteFile(path.join(BASE_PATH, DIR), FILENAME);`);
 }
 
-export function fs_deleteDir() {
+export function deleteDir() {
   return template(`LIB_FS.deleteFile(path.join(BASE_PATH, DIR));`);
 }
 
-export function fs_updateFile() {
+export function updateFile() {
   return template(
     `LIB_FS.updateFile(path.join(BASE_PATH, DIR), FILENAME, CONTENTS);`
   );
 }
 
-export function fs_moveFile() {
+export function moveFile() {
   return template(`LIB_FS.moveFile(DIR, FILENAME, NEWDIR, NEWFILENAME);`);
 }
 
-export function fs_moveDir() {
+export function moveDir() {
   return template(`LIB_FS.moveDir(DIR, NEWDIR);`);
 }

@@ -17,7 +17,6 @@ export default function(opts) {
       _analysis = analysis.value;
       _analysisState = true;
     }
-    if (analysis === true) _analysisState = true;
   }
 
   let analyzers;
@@ -32,14 +31,13 @@ export default function(opts) {
       visitor: {
         ImportDeclaration(path, state) {
           analyze(analyzers.meta.analyzeImportDeclaration, path, state);
-          if (_importAnalysis) return;
-          console.log(state.file.opts)
+          if (!_analysisState || _importAnalysis) return;
           /*
           Inserts two statements:
             * isotropy fs lib module import
             * path module import
           */
-          path.insertBefore([
+          path.replaceWithMultiple([
             t.importDeclaration(
               [
                 t.importDefaultSpecifier(
