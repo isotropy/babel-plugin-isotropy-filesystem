@@ -27,13 +27,20 @@ describe("isotropy-ast-analyzer-db", () => {
           [
             pluginInfo.plugin,
             {
-              libDbIdentifier: "ispyDb",
-              databaseModules: {
-                todosDbModule: "./dist/test/fixtures/my-db"
-              }
+              projects: [
+                {
+                  dir: "dist/test",
+                  modules: [
+                    {
+                      source: "fixtures/my-fs",
+                      locations: [{ name: "docs", path: "/home/private/docs" }]
+                    }
+                  ]
+                }
+              ]
             }
           ],
-          "transform-object-rest-spread"
+          "syntax-object-rest-spread"
         ],
         parserOpts: {
           sourceType: "module",
@@ -47,7 +54,15 @@ describe("isotropy-ast-analyzer-db", () => {
   }
 
   const tests = [
-    ["count", "count"]
+    ["create-file", "create-file"],
+    ["read-file", "read-file"],
+    ["update-file", "update-file"],
+    ["get-files", "get-files"],
+    ["get-files-recursive", "get-files-recursive"],
+    ["move-file", "move-file"],
+    ["move-dir", "move-dir"],
+    ["delete-file", "delete-file"],
+    ["delete-dir", "delete-dir"]
   ];
 
   for (const test of tests) {

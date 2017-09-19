@@ -29,9 +29,13 @@ export function updateFile() {
 }
 
 export function moveFile() {
-  return template(`LIB_FS.moveFile(DIR, FILENAME, NEWDIR, NEWFILENAME);`);
+  return template(
+    `LIB_FS.moveFile(path.join(BASE_PATH, DIR), FILENAME, path.join(BASE_PATH, NEWDIR), NEWFILENAME);`
+  );
 }
 
 export function moveDir() {
-  return template(`LIB_FS.moveDir(DIR, NEWDIR);`);
+  return template(
+    `LIB_FS.moveDir(path.join(BASE_PATH, DIR), path.join(BASE_PATH, NEWDIR));`
+  );
 }
