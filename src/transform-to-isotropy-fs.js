@@ -9,7 +9,10 @@ export default function(opts) {
   // Specifies the isotropy filesystem library
   const libFsSource = t.StringLiteral("isotropy-lib-fs");
   const libFsIdentifier =
-    "isotropyFS_" + Math.random().toString(36).substring(2);
+    "isotropyFS_" +
+    Math.random()
+      .toString(36)
+      .substring(2);
 
   return {
     plugin: {
@@ -23,24 +26,25 @@ export default function(opts) {
               path,
               state
             );
-            if (!analysis) return;
-            /*
-            Inserts two statements:
-            * isotropy fs lib module import
-            * path module import
-            */
-            path.replaceWithMultiple([
-              t.importDeclaration(
-                [t.importDefaultSpecifier(t.identifier(libFsIdentifier))],
-                libFsSource
-              )
-              // ,
-              // t.importDeclaration(
-              //   [t.importDefaultSpecifier(t.identifier("path"))],
-              //   t.stringLiteral("path")
-              // )
-            ]);
-            path.skip();
+            if (analysis) {
+              /*
+                Inserts two statements:
+                * isotropy fs lib module import
+                * path module import
+              */
+              path.replaceWithMultiple([
+                t.importDeclaration(
+                  [t.importDefaultSpecifier(t.identifier(libFsIdentifier))],
+                  libFsSource
+                )
+                // ,
+                // t.importDeclaration(
+                //   [t.importDefaultSpecifier(t.identifier("path"))],
+                //   t.stringLiteral("path")
+                // )
+              ]);
+              path.skip();
+            }
           }
         },
 
@@ -51,56 +55,56 @@ export default function(opts) {
               path,
               state
             );
-            if (!analysis) return;
-            analysis = analysis.value;
-            /*
-            Based  on  the  analysis  from  the  analyzer  module  (_analysis),
-            the appropriate code translation is created by calling the template
-            with the corresponding mapper function which is inturn fed with the
-            result  of  the  analysis (the first argument). This  code  is  then
-            turned  into  an  await  expr.  The  mapper  function  also  takes
-            the  libFsIdentifier  variable  and  the  basePath  from the  config
-            */
-            path.replaceWith(
-              t.awaitExpression(
-                template[analysis.type]()(
-                  mapper[analysis.type](
-                    clean(analysis),
-                    t.identifier(libFsIdentifier),
-                    t.stringLiteral(analysis.module)
-                  )
-                ).expression
-              )
-            );
-            path.skip();
+            if (analysis) {
+              /*
+                Based  on  the  analysis  from  the  analyzer  module  (_analysis),
+                the appropriate code translation is created by calling the template
+                with the corresponding mapper function which is inturn fed with the
+                result  of  the  analysis (the first argument). This  code  is  then
+                turned  into  an  await  expr.  The  mapper  function  also  takes
+                the  libFsIdentifier  variable  and  the  basePath  from the  config
+              */
+              path.replaceWith(
+                t.awaitExpression(
+                  template[analysis.value.type]()(
+                    mapper[analysis.value.type](
+                      clean(analysis.value),
+                      t.identifier(libFsIdentifier),
+                      t.stringLiteral(analysis.value.module)
+                    )
+                  ).expression
+                )
+              );
+              path.skip();
+            }
           }
         },
 
         CallExpression: {
           exit(path, state) {
             let analysis = analyzers.read.analyzeCallExpression(path, state);
-            if (!analysis) return;
-            analysis = analysis.value;
-            /*
-            Based  on  the  analysis  from  the  analyzer  module  (_analysis),
-            the appropriate code translation is created by calling the template
-            with the corresponding mapper function which is inturn fed with the
-            result  of  the  analysis (the first argument). This  code  is  then
-            turned  into  an  await  expr.  The  mapper  function  also  takes
-            the  libFsIdentifier  variable  and  the  basePath  from the  config
-            */
-            path.replaceWith(
-              t.awaitExpression(
-                template[analysis.type]()(
-                  mapper[analysis.type](
-                    clean(analysis),
-                    t.identifier(libFsIdentifier),
-                    t.stringLiteral(analysis.module)
-                  )
-                ).expression
-              )
-            );
-            path.skip();
+            if (analysis) {
+              /*
+                Based  on  the  analysis  from  the  analyzer  module  (_analysis),
+                the appropriate code translation is created by calling the template
+                with the corresponding mapper function which is inturn fed with the
+                result  of  the  analysis (the first argument). This  code  is  then
+                turned  into  an  await  expr.  The  mapper  function  also  takes
+                the  libFsIdentifier  variable  and  the  basePath  from the  config
+              */
+              path.replaceWith(
+                t.awaitExpression(
+                  template[analysis.value.type]()(
+                    mapper[analysis.value.type](
+                      clean(analysis.value),
+                      t.identifier(libFsIdentifier),
+                      t.stringLiteral(analysis.value.module)
+                    )
+                  ).expression
+                )
+              );
+              path.skip();
+            }
           }
         }
       }
