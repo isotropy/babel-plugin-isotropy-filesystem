@@ -1,4 +1,4 @@
-import getAnalyzers from "../../isotropy-ast-analyzer-fs/dist";
+import getAnalyzers from "isotropy-ast-analyzer-fs";
 import * as mapper from "./mappers";
 import * as template from "./templates";
 import * as t from "babel-types";
@@ -8,11 +8,7 @@ export default function(opts) {
   let analyzers;
   // Specifies the isotropy filesystem library
   const libFsSource = t.StringLiteral("isotropy-lib-fs");
-  const libFsIdentifier =
-    "isotropyFS_" +
-    Math.random()
-      .toString(36)
-      .substring(2);
+  let libFsIdentifier;
 
   return {
     plugin: {
@@ -27,6 +23,8 @@ export default function(opts) {
               state
             );
             if (analysis) {
+              libFsIdentifier = path.scope.generateUidIdentifier("isotropyFs")
+                .name;
               /*
                 Inserts two statements:
                 * isotropy fs lib module import
@@ -36,12 +34,11 @@ export default function(opts) {
                 t.importDeclaration(
                   [t.importDefaultSpecifier(t.identifier(libFsIdentifier))],
                   libFsSource
+                ),
+                t.importDeclaration(
+                  [t.importDefaultSpecifier(t.identifier("path"))],
+                  t.stringLiteral("path")
                 )
-                // ,
-                // t.importDeclaration(
-                //   [t.importDefaultSpecifier(t.identifier("path"))],
-                //   t.stringLiteral("path")
-                // )
               ]);
               path.skip();
             }
