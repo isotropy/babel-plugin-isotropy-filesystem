@@ -7,7 +7,7 @@
     "Jeswin Kumar<jeswinpk@agilehead.com>",
     "Arivanandan<uarivanandan@gmail.com>"
   ],
-  "main": "dist/transform-to-isotropy-db.js",
+  "main": "dist/transform-to-isotropy-fs.js",
   "scripts": {
     "test": "mocha dist/test/test.js",
     "debug": "mocha --inspect-brk dist/test/test.js"
