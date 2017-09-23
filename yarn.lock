@@ -728,9 +728,9 @@ is-finite@^1.0.0:
   dependencies:
     number-is-nan "^1.0.0"
 
-isotropy-ast-analyzer-fs@0.0.1:
-  version "0.0.1"
-  resolved "https://registry.yarnpkg.com/isotropy-ast-analyzer-fs/-/isotropy-ast-analyzer-fs-0.0.1.tgz#c8607333af693003828e937be568f9eac239def4"
+isotropy-ast-analyzer-fs@0.0.5:
+  version "0.0.5"
+  resolved "https://registry.yarnpkg.com/isotropy-ast-analyzer-fs/-/isotropy-ast-analyzer-fs-0.0.5.tgz#422a5eb06ee3bbea18666884071a4ab623c27eac"
   dependencies:
     chimpanzee "0.0.50"
     lazily "^0.0.17"
@@ -893,6 +893,10 @@ process@^0.11.1:
 ramda@^0.23.0:
   version "0.23.0"
   resolved "https://registry.yarnpkg.com/ramda/-/ramda-0.23.0.tgz#ccd13fff73497a93974e3e86327bfd87bd6e8e2b"
+
+ramda@^0.24.1:
+  version "0.24.1"
+  resolved "https://registry.yarnpkg.com/ramda/-/ramda-0.24.1.tgz#c3b7755197f35b8dc3502228262c4c91ddb6b857"
 
 regenerate@^1.2.1:
   version "1.3.2"

@@ -85,7 +85,7 @@ export default function(opts) {
             let analysis = analyzers.read.analyzeCallExpression(path, state);
             if (analysis) {
               /*
-                Based  on  the  analysis  from  the  analyzer  module  (_analysis),
+              Based  on  the  analysis  from  the  analyzer  module  (_analysis),
                 the appropriate code translation is created by calling the template
                 with the corresponding mapper function which is inturn fed with the
                 result  of  the  analysis (the first argument). This  code  is  then
