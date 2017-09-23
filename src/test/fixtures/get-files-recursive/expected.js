@@ -1,7 +1,7 @@
-import ispyFs from "isotropy-lib-fs";
+import _isotropyFs from "isotropy-lib-fs";
 import path from "path";
-import myFs from "../my-fs";
+
 
 async function getFilesRecursive() {
-  return await ispyFs.getFiles(path.join("/home", "/some/path"), true);
+  return await _isotropyFs.getFiles(path.join("/home/private/docs", "/some/path"), true);
 }

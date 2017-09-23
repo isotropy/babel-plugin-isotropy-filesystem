@@ -1,7 +1,7 @@
-import ispyFs from "isotropy-lib-fs";
+import _isotropyFs from "isotropy-lib-fs";
 import path from "path";
-import myFs from "../my-fs";
+
 
 async function readFile() {
-  return await ispyFs.readFile(path.join("/home", "/some/path"), "report.txt");
+  return await _isotropyFs.readFile(path.join("/home/private/docs", "/some/path"), "report.txt");
 }
