@@ -14,10 +14,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/isotropy/babel-plugin-isotropy-db.git"
+    "url": "https://github.com/isotropy/babel-plugin-isotropy-fs.git"
   },
   "bugs": {
-    "url": "https://github.com/isotropy/babel-plugin-isotropy-db/issues"
+    "url": "https://github.com/isotropy/babel-plugin-isotropy-fs/issues"
   },
   "dependencies": {
     "isotropy-ast-analyzer-fs": "0.0.5",
