@@ -1,11 +1,11 @@
 {
-  "name": "babel-plugin-isotropy-fs",
+  "name": "babel-plugin-isotropy-filesystem",
   "description": "Babel plugin for transforming to lib-fs",
   "version": "0.0.2",
-  "author": "Arivanandan<uarivanandan@gmail.com>",
+  "author": "Isotropy Team<isotropy@agilehead.com>",
   "contributors": [
-    "Jeswin Kumar<jeswinpk@agilehead.com>",
-    "Arivanandan<uarivanandan@gmail.com>"
+    "Arivanandan<uarivanandan@gmail.com>",
+    "Jeswin Kumar<jeswinpk@agilehead.com>"
   ],
   "main": "dist/transform-to-isotropy-fs.js",
   "scripts": {
@@ -14,13 +14,13 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/isotropy/babel-plugin-isotropy-fs.git"
+    "url": "https://github.com/isotropy/babel-plugin-isotropy-filesystem.git"
   },
   "bugs": {
-    "url": "https://github.com/isotropy/babel-plugin-isotropy-fs/issues"
+    "url": "https://github.com/isotropy/babel-plugin-isotropy-filesystem/issues"
   },
   "dependencies": {
-    "isotropy-ast-analyzer-fs": "0.0.5",
+    "isotropy-ast-analyzer-filesystem": "0.0.5",
     "ramda": "^0.24.1"
   },
   "devDependencies": {

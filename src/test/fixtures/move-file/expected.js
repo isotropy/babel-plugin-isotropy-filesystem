@@ -1,4 +1,4 @@
-import _isotropyFs from "isotropy-lib-fs";
+import _isotropyFs from "isotropy-lib-filesystem";
 import path from "path";
 
 

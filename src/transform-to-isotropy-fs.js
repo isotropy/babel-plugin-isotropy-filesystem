@@ -1,4 +1,4 @@
-import getAnalyzers from "isotropy-ast-analyzer-fs";
+import getAnalyzers from "isotropy-ast-analyzer-filesystem";
 import * as mapper from "./mappers";
 import * as template from "./templates";
 import * as t from "babel-types";
@@ -7,7 +7,7 @@ import clean from "./utils/node-cleaner";
 export default function(opts) {
   let analyzers;
   // Specifies the isotropy filesystem library
-  const libFsSource = t.StringLiteral("isotropy-lib-fs");
+  const libFsSource = t.StringLiteral("isotropy-lib-filesystem");
   let libFsIdentifier;
 
   return {
