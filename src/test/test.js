@@ -2,13 +2,40 @@ import should from "should";
 import * as babel from "babel-core";
 import fs from "fs";
 import path from "path";
-import makePlugin from "../transform-to-isotropy-fs";
+import transformToIsotropyFilesystem from "../transform-to-isotropy-fs";
 import sourceMapSupport from "source-map-support";
 
 sourceMapSupport.install();
 
-describe("isotropy-ast-analyzer-db", () => {
-  function run([description, dir, opts]) {
+describe("isotropy-ast-analyzer-filesystem", () => {
+  function run([description, dir]) {
+    const opts = {
+      plugins: [
+        [
+          transformToIsotropyFilesystem(),
+          {
+            projects: [
+              {
+                dir: "dist/test",
+                modules: [
+                  {
+                    source: "fixtures/my-fs",
+                    locations: [{ name: "docs", path: "/home/private/docs" }]
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "syntax-object-rest-spread"
+      ],
+      parserOpts: {
+        sourceType: "module",
+        allowImportExportEverywhere: true
+      },
+      babelrc: false
+    };
+
     it(`${description}`, () => {
       const fixturePath = path.resolve(
         __dirname,
@@ -16,46 +43,21 @@ describe("isotropy-ast-analyzer-db", () => {
         dir,
         `fixture.js`
       );
-      const outputPath = path.resolve(__dirname, "fixtures", dir, `output.js`);
-      const expected = fs
-        .readFileSync(__dirname + `/fixtures/${dir}/expected.js`)
-        .toString();
-      const pluginInfo = makePlugin(opts);
 
-      const babelResult = babel.transformFileSync(fixturePath, {
-        plugins: [
-          [
-            pluginInfo.plugin,
-            {
-              projects: [
-                {
-                  dir: "dist/test",
-                  modules: [
-                    {
-                      source: "fixtures/my-fs",
-                      locations: [{ name: "docs", path: "/home/private/docs" }]
-                    }
-                  ]
-                }
-              ]
-            }
-          ],
-          "syntax-object-rest-spread"
-        ],
-        parserOpts: {
-          sourceType: "module",
-          allowImportExportEverywhere: true
-        },
-        babelrc: false
-      });
+      const expected = fs.readFileSync(
+        __dirname + `/fixtures/${dir}/expected.js`,
+        "utf-8"
+      );
+
+      const babelResult = babel.transformFileSync(fixturePath, opts);
       const actual = babelResult.code + "\n";
       actual.should.deepEqual(expected);
     });
   }
 
-  const tests = [
-    ["create-file", "create-file"],
+  [
     ["read-file", "read-file"],
+    ["create-file", "create-file"],
     ["update-file", "update-file"],
     ["get-files", "get-files"],
     ["get-files-recursive", "get-files-recursive"],
@@ -63,9 +65,5 @@ describe("isotropy-ast-analyzer-db", () => {
     ["move-dir", "move-dir"],
     ["delete-file", "delete-file"],
     ["delete-dir", "delete-dir"]
-  ];
-
-  for (const test of tests) {
-    run(test);
-  }
+  ].forEach(test => run(test));
 });
