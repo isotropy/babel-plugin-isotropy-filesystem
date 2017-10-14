@@ -7,7 +7,7 @@ export default function() {
   const analyzers = getAnalyzers();
   const libFsSource = t.StringLiteral("isotropy-lib-filesystem");
   let libFsIdentifier;
-  const visitor = {};
+  let hasValidImport;
 
   const replace = (path, analysis) => {
     /*
@@ -32,32 +32,42 @@ export default function() {
     path.skip();
   };
 
+  const visitor = {};
+  let importAnalysis;
+  const pre = function pre(state) {
+    hasValidImport = false;
+  };
+
   visitor.ImportDeclaration = {
+    enter(path, state) {
+      importAnalysis = analyzers.meta.analyzeImportDeclaration(path, state);
+      if (importAnalysis.error) path.stop();
+      if (importAnalysis.skip) path.skip();
+    },
     exit(path, state) {
-      const analysis = analyzers.meta.analyzeImportDeclaration(path, state);
-      if (analysis) {
-        libFsIdentifier = path.scope.generateUidIdentifier("isotropyFs").name;
-        /*
+      hasValidImport = true;
+      libFsIdentifier = path.scope.generateUidIdentifier("isotropyFs").name;
+      /*
             Inserts two statements:
             * isotropy fs lib module import
             * path module import
           */
-        path.replaceWithMultiple([
-          t.importDeclaration(
-            [t.importDefaultSpecifier(t.identifier(libFsIdentifier))],
-            libFsSource
-          ),
-          t.importDeclaration(
-            [t.importDefaultSpecifier(t.identifier("path"))],
-            t.stringLiteral("path")
-          )
-        ]);
-        path.skip();
-      }
+      path.replaceWithMultiple([
+        t.importDeclaration(
+          [t.importDefaultSpecifier(t.identifier(libFsIdentifier))],
+          libFsSource
+        ),
+        t.importDeclaration(
+          [t.importDefaultSpecifier(t.identifier("path"))],
+          t.stringLiteral("path")
+        )
+      ]);
+      path.skip();
     }
   };
 
   visitor.AssignmentExpression = function(path, state) {
+    // if (!hasValidImport) path.stop();
     const analysis = analyzers.write.analyzeAssignmentExpression(path, state);
     if (analysis) {
       replace(path, analysis.value);
@@ -65,11 +75,12 @@ export default function() {
   };
 
   visitor.CallExpression = function(path, state) {
+    // if (!hasValidImport) path.stop();
     const analysis = analyzers.read.analyzeCallExpression(path, state);
     if (analysis) {
       replace(path, analysis.value);
     }
   };
 
-  return { visitor };
+  return { pre, visitor };
 }
