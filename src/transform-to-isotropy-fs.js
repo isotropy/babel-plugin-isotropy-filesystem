@@ -67,7 +67,7 @@ export default function() {
   };
 
   visitor.AssignmentExpression = function(path, state) {
-    // if (!hasValidImport) path.stop();
+    if (!hasValidImport) path.stop();
     const analysis = analyzers.write.analyzeAssignmentExpression(path, state);
     if (analysis) {
       replace(path, analysis.value);
@@ -75,7 +75,7 @@ export default function() {
   };
 
   visitor.CallExpression = function(path, state) {
-    // if (!hasValidImport) path.stop();
+    if (!hasValidImport) path.stop();
     const analysis = analyzers.read.analyzeCallExpression(path, state);
     if (analysis) {
       replace(path, analysis.value);
