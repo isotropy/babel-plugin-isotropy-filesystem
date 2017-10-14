@@ -20,7 +20,7 @@
     "url": "https://github.com/isotropy/babel-plugin-isotropy-filesystem/issues"
   },
   "dependencies": {
-    "isotropy-ast-analyzer-filesystem": "^0.0.6",
+    "isotropy-ast-analyzer-filesystem": "^0.0.8",
     "ramda": "^0.24.1"
   },
   "devDependencies": {
