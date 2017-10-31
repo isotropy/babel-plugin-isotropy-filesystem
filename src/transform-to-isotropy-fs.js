@@ -1,6 +1,6 @@
-import getAnalyzers from "isotropy-ast-analyzer-filesystem";
-import * as mapper from "./mappers";
-import * as template from "./templates";
+import getAnalyzers from "../../isotropy-ast-analyzer-filesystem";
+import mapper from "./mappers";
+import template from "./templates";
 import * as t from "babel-types";
 
 export default function() {
@@ -20,11 +20,11 @@ export default function() {
         */
     path.replaceWith(
       t.awaitExpression(
-        template[analysis.type]()(
-          mapper[analysis.type](
+        template(analysis.operation)(
+          mapper(analysis.operation)(
             analysis,
             t.identifier(libFsIdentifier),
-            t.stringLiteral(analysis.module)
+            t.stringLiteral(analysis.path)
           )
         ).expression
       )
@@ -52,16 +52,12 @@ export default function() {
             * isotropy fs lib module import
             * path module import
           */
-      path.replaceWithMultiple([
+      path.replaceWith(
         t.importDeclaration(
           [t.importDefaultSpecifier(t.identifier(libFsIdentifier))],
           libFsSource
-        ),
-        t.importDeclaration(
-          [t.importDefaultSpecifier(t.identifier("path"))],
-          t.stringLiteral("path")
         )
-      ]);
+      );
       path.skip();
     }
   };

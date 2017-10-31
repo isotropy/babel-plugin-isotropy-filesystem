@@ -1,7 +1,10 @@
 import _isotropyFs from "isotropy-lib-filesystem";
-import path from "path";
 
 
 async function createFile() {
-  await _isotropyFs.createFile(path.join("/home/private/docs", "documents"), "report.txt", "hello, world");
+  await _isotropyFs.createFile("/home/private/docs", {
+    dir: "documents",
+    filename: "report.txt",
+    contents: "hello, world"
+  });
 }

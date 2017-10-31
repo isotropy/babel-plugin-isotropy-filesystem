@@ -20,7 +20,7 @@ describe("isotropy-ast-analyzer-filesystem", () => {
                 modules: [
                   {
                     source: "dist/test/fixtures/my-fs",
-                    locations: [{ name: "docs", path: "/home/private/docs" }]
+                    locations: { docs: { path: "/home/private/docs" } }
                   }
                 ]
               }

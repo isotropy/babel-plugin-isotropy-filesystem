@@ -1,41 +1,24 @@
 import template from "babel-template";
 
-export function getFiles() {
-  return template(`LIB_FS.getFiles(path.join(BASE_PATH, DIR), RECURSE);`);
-}
-
-export function readFile() {
-  return template(`LIB_FS.readFile(path.join(BASE_PATH, DIR), FILENAME);`);
-}
-
-export function createFile() {
-  return template(
-    `LIB_FS.createFile(path.join(BASE_PATH, DIR), FILENAME, CONTENTS);`
-  );
-}
-
-export function deleteFile() {
-  return template(`LIB_FS.deleteFile(path.join(BASE_PATH, DIR), FILENAME);`);
-}
-
-export function deleteDir() {
-  return template(`LIB_FS.deleteFile(path.join(BASE_PATH, DIR));`);
-}
-
-export function updateFile() {
-  return template(
-    `LIB_FS.updateFile(path.join(BASE_PATH, DIR), FILENAME, CONTENTS);`
-  );
-}
-
-export function moveFile() {
-  return template(
-    `LIB_FS.moveFile(path.join(BASE_PATH, DIR), FILENAME, path.join(BASE_PATH, NEWDIR), NEWFILENAME);`
-  );
-}
-
-export function moveDir() {
-  return template(
-    `LIB_FS.moveDir(path.join(BASE_PATH, DIR), path.join(BASE_PATH, NEWDIR));`
-  );
+export default function(operation) {
+  switch (operation) {
+    case "get-files":
+      return template(`LIB_FS.getFiles(BASE_PATH, DIR, RECURSE);`);
+    case "read-file":
+      return template(`LIB_FS.readFile(BASE_PATH, DIR, FILENAME);`);
+    case "create-file":
+      return template(`LIB_FS.createFile(BASE_PATH, FILES);`);
+    case "update-file":
+      return template(`LIB_FS.updateFile(BASE_PATH, DIR, FILENAME, CONTENTS);`);
+    case "move-file":
+      return template(`LIB_FS.moveFile(BASE_PATH, DIR, FILENAME, NEWDIR, NEWFILENAME);`);
+    case "move-dir":
+      return template(`LIB_FS.moveDir(BASE_PATH, DIR, NEWDIR);`);
+    case "delete-file":
+      return template(`LIB_FS.deleteFile(BASE_PATH, DIR, FILENAME);`);
+    case "delete-dir":
+      return template(`LIB_FS.deleteFile(BASE_PATH, DIR);`);
+    default:
+      throw new Error("Template not found. Unsupported operation.");
+  }
 }
