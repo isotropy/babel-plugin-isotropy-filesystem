@@ -34,16 +34,9 @@ export default function(operation) {
       case "move-file":
         return {
           DIR: result.dir,
-          FILENAME: result.filename,
+          FILENAME: result.filename ? result.filename : null,
           NEWDIR: result.newDir,
-          NEWFILENAME: result.newFilename,
-          LIB_FS: libFs,
-          BASE_PATH: basePath
-        };
-      case "move-dir":
-        return {
-          DIR: result.dir,
-          NEWDIR: result.newDir,
+          NEWFILENAME: result.newFilename ? result.newFilename : null,
           LIB_FS: libFs,
           BASE_PATH: basePath
         };

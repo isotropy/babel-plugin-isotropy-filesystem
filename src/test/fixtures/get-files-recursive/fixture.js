@@ -1,5 +1,5 @@
 import myFs from "../my-fs";
 
-async function getFiles() {
-  return myFS.docs.filter(file => file.dir.startsWith("path/to/docs/"));
+async function getFilesRecursive() {
+  return myFs.docs.filter(file => file.dir.startsWith("/some/path"));
 }
